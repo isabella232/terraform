@@ -14,6 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
+	"github.com/aws/aws-sdk-go/service/cloudfront"
 	"github.com/aws/aws-sdk-go/service/cloudtrail"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -56,6 +57,7 @@ type Config struct {
 
 type AWSClient struct {
 	cfconn             *cloudformation.CloudFormation
+	cloudfrontconn     *cloudfront.CloudFront
 	cloudtrailconn     *cloudtrail.CloudTrail
 	cloudwatchconn     *cloudwatch.CloudWatch
 	cloudwatchlogsconn *cloudwatchlogs.CloudWatchLogs
@@ -154,6 +156,12 @@ func (c *Config) Client() (interface{}, error) {
 
 		log.Println("[INFO] Initializing SNS connection")
 		client.snsconn = sns.New(sess)
+
+		log.Println("[INFO] Initializing Cloudfront connection")
+		client.cloudfrontconn = cloudfront.New(sess)
+
+		log.Println("[INFO] Initializing Cloudfront connection")
+		client.cloudfrontconn = cloudfront.New(sess)
 
 		log.Println("[INFO] Initializing RDS Connection")
 		client.rdsconn = rds.New(sess)

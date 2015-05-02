@@ -175,6 +175,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_autoscaling_notification":         resourceAwsAutoscalingNotification(),
 			"aws_autoscaling_policy":               resourceAwsAutoscalingPolicy(),
 			"aws_cloudformation_stack":             resourceAwsCloudFormationStack(),
+			"aws_cloudfront_web_distribution":      resourceAwsCloudFrontWebDistribution(),
 			"aws_cloudtrail":                       resourceAwsCloudTrail(),
 			"aws_cloudwatch_log_group":             resourceAwsCloudWatchLogGroup(),
 			"aws_autoscaling_lifecycle_hook":       resourceAwsAutoscalingLifecycleHook(),
