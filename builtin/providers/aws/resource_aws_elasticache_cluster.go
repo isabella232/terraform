@@ -419,7 +419,7 @@ func cacheClusterStateRefreshFunc(conn *elasticache.ElastiCache, clusterID, give
 		}
 
 		c := resp.CacheClusters[0]
-		log.Printf("[DEBUG] ElastiCache Cluster status: %v", *c.CacheClusterStatus)
+		log.Printf("[DEBUG] ElastiCache Cluster (%s) status: %v", d.Id(), *c.CacheClusterStatus)
 
 		// return the current state if it's in the pending array
 		for _, p := range pending {
