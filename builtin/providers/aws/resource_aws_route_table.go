@@ -42,6 +42,7 @@ func resourceAwsRouteTable() *schema.Resource {
 			"route": &schema.Schema{
 				Type:     schema.TypeSet,
 				Optional: true,
+				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr_block": &schema.Schema{
