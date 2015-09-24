@@ -153,6 +153,10 @@ func resourceAwsRouteRead(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
+	if route == nil {
+		return nil
+	}
+
 	d.Set("destination_prefix_list_id", route.DestinationPrefixListId)
 	d.Set("gateway_id", route.DestinationPrefixListId)
 	d.Set("instance_id", route.InstanceId)
@@ -268,9 +272,11 @@ func findResourceRoute(conn *ec2.EC2, rtbid string, cidr string) (*ec2.Route, er
 		return nil, err
 	}
 
-	for _, route := range (*resp.RouteTables[0]).Routes {
-		if *route.DestinationCidrBlock == cidr {
-			return route, nil
+	if len(resp.RouteTables) > 0 {
+		for _, route := range (*resp.RouteTables[0]).Routes {
+			if route != nil && route.DestinationCidrBlock != nil && *route.DestinationCidrBlock == cidr {
+				return route, nil
+			}
 		}
 	}
 
