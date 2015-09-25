@@ -7,9 +7,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/awslabs/aws-sdk-go/aws"
-	"github.com/awslabs/aws-sdk-go/aws/awserr"
-	"github.com/awslabs/aws-sdk-go/service/cloudfront"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
+	"github.com/aws/aws-sdk-go/service/cloudfront"
 	"github.com/hashicorp/terraform/helper/hashcode"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -335,8 +335,8 @@ func resourceAwsCloudFrontWebDistributionRead(d *schema.ResourceData, meta inter
 	d.Set("status", v.Distribution.Status)
 	d.Set("default_viewer_protocol_policy", c.DefaultCacheBehavior.ViewerProtocolPolicy)
 	d.Set("default_forward_cookie", c.DefaultCacheBehavior.ForwardedValues.Cookies)
-// Causes panic, null pointer somewhere in here
-//	d.Set("default_whitelisted_cookies", resourceAwsCloudFrontCopyItems(c.DefaultCacheBehavior.ForwardedValues.Cookies.WhitelistedNames.Items))
+	// Causes panic, null pointer somewhere in here
+	//	d.Set("default_whitelisted_cookies", resourceAwsCloudFrontCopyItems(c.DefaultCacheBehavior.ForwardedValues.Cookies.WhitelistedNames.Items))
 	d.Set("default_forward_query_string", c.DefaultCacheBehavior.ForwardedValues.QueryString)
 	d.Set("default_minimum_ttl", c.DefaultCacheBehavior.MinTTL)
 	d.Set("default_smooth_streaming", c.DefaultCacheBehavior.SmoothStreaming)
@@ -473,7 +473,7 @@ func resourceAwsCloudFrontWebDistributionDistributionConfig(
 
 	viewerCertificate := &cloudfront.ViewerCertificate{
 		//MinimumProtocolVersion: aws.String(d.Get("minimum_ssl").(string)),
-		SSLSupportMethod:       aws.String(d.Get("ssl_support_method").(string)),
+		SSLSupportMethod: aws.String(d.Get("ssl_support_method").(string)),
 	}
 	if d.Get("certificate_id") == "" {
 		viewerCertificate.CloudFrontDefaultCertificate = aws.Bool(true)
